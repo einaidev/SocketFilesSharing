@@ -31,12 +31,12 @@ class allInterfaces:
                 else:
                     if "ipv4" in i.lower():
                         interfaces[index]["ipv4"] = self.cases["ipv4"](i)
-                    if "inet" in i.lower():
-                        interfaces[index]["inet"] = self.cases["inet"](i)
+                    if "inet" in i.lower() and not "inet6" in i.lower():
+                        interfaces[index]["ipv4"] = self.cases["inet"](i)
         index = -1
         for k,v in interfaces.items():
             if "ipv4" in v:
                 index += 1
-                valid_interfaces[index] = {"name":v["name"], "ipv4": v["ipv4"]}
-
+                valid_interfaces[index] = {"name":v["name"].split(":")[0], "ipv4": v["ipv4"]}
+                
         return valid_interfaces

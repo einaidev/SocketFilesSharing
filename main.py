@@ -24,8 +24,6 @@ class main:
         os.system("clear" if not platform.system() == "Windows" else "cls")
         self.bufferSize = 4096
 
-
-
     @property
     def aliveClients(self):
         for i in range(0,self.ranger):
