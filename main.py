@@ -22,7 +22,6 @@ class main:
         print(__c__)
         sleep(1)
         os.system("clear" if not platform.system() == "Windows" else "cls")
-        self.bufferSize = 4096
 
     @property
     def aliveClients(self):
