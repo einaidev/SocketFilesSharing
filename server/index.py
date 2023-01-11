@@ -20,7 +20,7 @@ def connect(sid,environ):
 
 @sio.on("newUser")
 async def newuser(sid,data):
-    if input("{0} {1} Deseja se connectar S/N >>> ".format(data["ipv4"], data["name"])).lower() in ["n"]:
+    if input("{0} {1} Deseja se conectar S/N >>> ".format(data["ipv4"], data["name"])).lower() in ["n"]:
         await sio.disconnect(sid)
     else:
         users[sid] = data

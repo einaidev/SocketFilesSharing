@@ -37,10 +37,10 @@ class main:
                 raise InterfaceDontHaveIpv4("A interface não possui um ipv4")
 
     def disconnect(self):
-        print("Voce foi desconectado... conecção foi recusada")
+        print("Você foi desconectado, sua conexão foi recusada.")
 
     def run(self):
-        menu = "Selecione a interface que voce quer\n\n"
+        menu = "Selecione qual função você quer exercer:\n\n"
         for k,i in self.interfaces.getInterfaces.items():
             menu += "{0}- {1}\n".format(k, i["name"])
         print(menu)
@@ -63,7 +63,7 @@ class main:
         }
         match self.mode:
             case "send":
-                print("[*] procurando clientes online [*]\nUsuarios on-line:\n")
+                print("[*] Procurando clientes online [*]\nUsuários online:\n")
                 index_ = 0
                 for i in self.aliveClients:
                     allow_clients[index_] = i.getpeername()
@@ -71,14 +71,14 @@ class main:
                     index_ += 1
                 index_ = 0
                 if allow_clients.__len__() == 0:
-                    print("Nem um usuario online")
+                    print("Nenhum usuário online.")
                     sleep(1)
                     exit()
-                user = input("Selcione um usuario [0 - {0}] >>> ".format(allow_clients.__len__()-1))
+                user = input("Selecione um usuario [0 - {0}] >>> ".format(allow_clients.__len__()-1))
                 if user.isnumeric():
                     if int(user) in allow_clients:
                         user = allow_clients[int(user)]
-                        file = input("local do arquivo >>> ")
+                        file = input("Local do arquivo >>> ")
                         file.replace("/","\\")
                         sio = socketio.Client()
                         sio.connect("http://{0}:{1}/".format(user[0], user[1]), wait_timeout=60*6,transports=['websocket'], namespaces=['/'])
@@ -88,7 +88,7 @@ class main:
                         while not sio.connected:
                             pass
                         sleep(5)
-                        print("conenctado")
+                        print("Conectado")
                         if os.path.isfile(file):
                             with open(file, "rb") as r:
                                 data = r.readlines()
@@ -105,10 +105,10 @@ class main:
                                     # def sender(i=i,last=last,data=data,datas=datas,last_= last_, file=file):
                                 
                                     # threading.Thread(target=sender,args=(i,last,data,datas,last_,file)).start()
-                        print("\npronto")
+                        print("\nPronto!")
                         exit()
             case "receive":
-                print("\nVoce é reconhecido por: {0}\n".format(self.interfaces.getInterfaces[self.atualinterface]["ipv4"]))
+                print("\nVocê está conectado com: {0}\n".format(self.interfaces.getInterfaces[self.atualinterface]["ipv4"]))
                 try:
                     __import__("server.index")
                 except Exception as e:
